@@ -159,7 +159,7 @@ public class ConsumerDBUtill {
 		    }
 			
 			//Delete Profile
-			public static boolean ConsumerDBUtill(String conId) {
+			public static String deleteProfileDetails(String conId) {
 				
 				String output = ""; 
 				int convertID = Integer.parseInt(conId);
@@ -187,7 +187,7 @@ public class ConsumerDBUtill {
 							e.printStackTrace();
 						}
 				
-				return Success;
+				return output;
 			}
 	
 	
