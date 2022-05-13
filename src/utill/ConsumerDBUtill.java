@@ -16,6 +16,57 @@ public class ConsumerDBUtill {
 		private static Statement stat = null;
 		private static ResultSet rs = null;
 		
+		//View Consumer Details
+		public static String viewConsumer(){
+			
+			String output = "";
+			
+			try {
+				
+				con = DBConnect.getConnection();
+				stat = con.createStatement();
+				
+				//SQL Query			
+				String sql = "select * from consumer";
+							
+				rs= stat.executeQuery(sql);
+				
+				while(rs.next()) {
+					String conId = rs.getString(1);
+					String name = rs.getString(2);
+					String address = rs.getString(3);
+					String mobile = rs.getString(4);				
+					String email = rs.getString(5);
+					String nic = rs.getString(6);
+					String username = rs.getString(7);
+					String password = rs.getString(8);
+				
+					// Add into the html table
+					 output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + conId + "'>" + name + "</td>"; 
+					 output += "<td>" + address + "</td>"; 
+					 output += "<td>" + mobile + "</td>"; 
+					 output += "<td>" + email + "</td>"; 
+					 output += "<td>" + nic + "</td>"; 
+					 output += "<td>" + username + "</td>"; 
+					 output += "<td>" + password + "</td>";
+					 
+					 // buttons
+					 output += "<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary'>"
+					 		+ "</td><td><form method='post' action='items.jsp'>"
+					 		+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
+					 		+ "<input name='hidItemIDDelete' type='hidden' value='" + conId + "'>" 
+					 		+ "</form></td></tr>"; 
+					 
+					// Complete the html table
+					 output += "</table>";
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return output;
+		}
+		
 		//Read Consumer Profile Data
 			public static List<Consumer> viewProfile(String userName){
 				
@@ -41,7 +92,7 @@ public class ConsumerDBUtill {
 						String username = rs.getString(7);
 						String password = rs.getString(8);
 					
-						//Create Employee Object
+						//Create Consumer Object
 						Consumer c = new Consumer(conId, name, address, nic, mobile, email, username, password);
 						consumer.add(c);
 					}
@@ -52,9 +103,9 @@ public class ConsumerDBUtill {
 			}
 		
 			//Insert Consumer Profile Details
-			public static boolean insertProfileDetails(String name, String address, String mobile, String nic, String email, String username, String  password) {
+			public static String insertProfileDetails(String name, String address, String mobile, String nic, String email, String username, String  password) {
 			    
-		    	boolean isSuccess = false;
+		    	String output = "";
 		    	
 		    	try {
 		    		con = DBConnect.getConnection();
@@ -63,22 +114,27 @@ public class ConsumerDBUtill {
 		    		int rs = stat.executeUpdate(sql);
 		    		
 		    		if(rs > 0) {
-		    			isSuccess = true;
+		    			
+		    			String newConsumerDetails = viewConsumer(); 
+		    			 output = "{\"status\":\"success\", \"data\": \"" + newConsumerDetails + "\"}";
+
 		    		} else {
-		    			isSuccess = false;
+		    			
+		    			output = "{\"status\":\"error\", \"data\": \"Error while inserting the details.\"}"; 
+
 		    		}
-		    		
 		    	}
 		    	catch (Exception e) {
 		    		e.printStackTrace();
 		    	}
 		 	
-		    	return isSuccess;
+		    	return output;
 		    }
 			
 			//Update Consumer Profile Details
-			public static boolean updateProfileDetails(String conId, String name, String address, String mobile, String nic, String email, String username, String  password) {
+			public static String updateProfileDetails(String conId, String name, String address, String mobile, String nic, String email, String username, String  password) {
 				
+				String output = "";
 		    	try {
 		    		con = DBConnect.getConnection();
 		    		stat = con.createStatement();
@@ -86,10 +142,12 @@ public class ConsumerDBUtill {
 		    		int rs = stat.executeUpdate(sql);
 		    		
 		    		if(rs > 0) {
-		    			Success = true;
+		    			String newConsumerDetails = viewConsumer(); 
+		    			
+		    			output = "{\"status\":\"success\", \"data\": \"" + newConsumerDetails + "\"}";
 		    		}
 		    		else {
-		    			Success = false;
+		    			output = "{\"status\":\"error\", \"data\": \"Error while updating the item.\"}"; 
 		    		}
 		    		
 		    	}
@@ -97,12 +155,13 @@ public class ConsumerDBUtill {
 		    		e.printStackTrace();
 		    	}
 		    	
-		    	return Success;
+		    	return output;
 		    }
 			
 			//Delete Profile
-			public static boolean deleteProfile(String conId) {
+			public static boolean ConsumerDBUtill(String conId) {
 				
+				String output = ""; 
 				int convertID = Integer.parseInt(conId);
 				
 				//Validate
@@ -117,10 +176,12 @@ public class ConsumerDBUtill {
 							int a = stat.executeUpdate(sql); 
 							
 							if(a > 0) {
-								Success = true;
+								String newConsumerDetails = viewConsumer(); 
+								 output = "{\"status\":\"success\", \"data\": \"" + newConsumerDetails + "\"}"; 
+
 							}
 							else {
-								Success = false;
+								output = "{\"status\":\"error\", \"data\": \"Error while deleting the item.\"}";
 							}
 						}catch(Exception e) {
 							e.printStackTrace();

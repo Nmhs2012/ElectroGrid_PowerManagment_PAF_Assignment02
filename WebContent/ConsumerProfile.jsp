@@ -1,3 +1,4 @@
+<%@ page import="utill.ConsumerDBUtill"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
 	 
 	 			<h1 class="m-3">PROFILE</h1>
 	 
-				 <form id="formProfile">
+				 <form id="formProfile" name="formProfile">
 				 
 				 <!-- NAME -->
 				 <div class="input-group input-group-sm mb-3">
@@ -24,6 +25,7 @@
 					 	<span class="input-group-text" id="lblName">Name: </span>
 					 </div>
 					 <input type="text" id="name" name="name">
+					 <p style = "color:Red">*</p>
 				 </div>
 				 
 				 <!-- ADDRESS -->
@@ -61,7 +63,7 @@
 				 <!-- USERNAME -->
 				 <div class="input-group input-group-sm mb-3">
 					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblEmail">User Name: </span>
+					 	<span class="input-group-text" id="lblUsername">User Name: </span>
 					 </div>
 					 <input type="text" id="username" name="username">
 				 </div>
@@ -69,26 +71,29 @@
 				 <!-- PASSWORD -->
 				 <div class="input-group input-group-sm mb-3">
 					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblEmail">Password: </span>
+					 	<span class="input-group-text" id="lblPassword">Password: </span>
 					 </div>
-					 <input type="text" id="password: " name="password:">
+					 <input type="text" id="password" name="password">
 				 </div>
 				 
 				 <div id="alertSuccess" class="alert alert-success"></div>
 				 <div id="alertError" class="alert alert-danger"></div>
 				 
 				<input type="button" id="btnSave" value="Save" class="btn btn-primary">
+				<input type="hidden" id="hidProfileIDSave" name="hidProfileIDSave" value="">
+				
 				</form>
 			</div>
 		</div>
 	 
 		<br>
-	 
-		<div class="row">
-			<div class="col-12" id="colProfile">
-			 
-			</div>
-		</div>
+	 	<div id="divItemsGrid">
+	 	<%
+	 		ConsumerDBUtill consumerObj = new ConsumerDBUtill(); 
+ 			out.print(consumerObj.viewConsumer()); 
+ 		%>
+	</div>
+		
 	</div>
 </body>
 </html>
