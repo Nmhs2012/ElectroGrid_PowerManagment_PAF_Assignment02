@@ -43,13 +43,54 @@ public class ConsumerAPI extends HttpServlet {
 		response.getWriter().write(output); 
 	}
 	
+	// Convert request parameters to a Map
+	private static Map getParasMap(HttpServletRequest request) 
+	{ 
+		 Map<String, String> map = new HashMap<String, String>(); 
+		 try
+		 { 
+			 Scanner scanner = new Scanner(request.getInputStream(), "UTF-8"); 
+			 String queryString = scanner.hasNext() ? 
+			 scanner.useDelimiter("\\A").next() : ""; 
+			 scanner.close(); 
+			 String[] params = queryString.split("&"); 
+			 
+			 for (String param : params) 
+			 { 
+				 String[] p = param.split("="); 
+				 map.put(p[0], p[1]); 
+			 } 
+		 } 
+		catch (Exception e) 
+		{ 
+			e.printStackTrace();
+		} 
+		return map; 
+	}
+	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Map paras = getParasMap(request); 
 		
+		String conId = paras.get("hidItemIDSave").toString();
+		String name = paras.get("name").toString();
+		String address = paras.get("address").toString();
+		String mobile = paras.get("mobile").toString();
+		String nic = paras.get("nic").toString();
+		String email = paras.get("email").toString();
+		String username = paras.get("username").toString();
+		String password = paras.get("password").toString();
+		
+		String output = ConsumerDBUtill.updateProfileDetails(conId, name, address, mobile, nic, email, username, password);
+		response.getWriter().write(output); 
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		Map paras = getParasMap(request); 
+		String output = ConsumerDBUtill.deleteProfileDetails(paras.get("conId").toString()); 
+		response.getWriter().write(output); 
 		 
 	}
 

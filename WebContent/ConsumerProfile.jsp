@@ -76,24 +76,23 @@
 					 <input type="text" id="password" name="password">
 				 </div>
 				 
-				 <div id="alertSuccess" class="alert alert-success"></div>
-				 <div id="alertError" class="alert alert-danger"></div>
-				 
 				<input type="button" id="btnSave" value="Save" class="btn btn-primary">
 				<input type="hidden" id="hidProfileIDSave" name="hidProfileIDSave" value="">
 				
 				</form>
+				
+				<br>
+		<div id="alertSuccess" class="alert alert-success"></div>
+		<div id="alertError" class="alert alert-danger"></div>
+		<br>
+	 	<div id="divConsumerGrid">
+	 	<%
+ 			out.print(ConsumerDBUtill.viewConsumer()); 
+ 		%>
+		</div>
+		
 			</div>
 		</div>
-	 
-		<br>
-	 	<div id="divItemsGrid">
-	 	<%
-	 		ConsumerDBUtill consumerObj = new ConsumerDBUtill(); 
- 			out.print(consumerObj.viewConsumer()); 
- 		%>
-	</div>
-		
 	</div>
 </body>
 </html>

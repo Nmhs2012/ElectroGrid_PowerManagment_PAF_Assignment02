@@ -26,6 +26,12 @@ public class ConsumerDBUtill {
 				con = DBConnect.getConnection();
 				stat = con.createStatement();
 				
+				// Prepare the html table to be displayed
+				output = "<table border='1'><tr><th>Name</th><th>Address</th><th>Mobile</th>"
+						+ "<th>Email</th><th>NIC</th><th>Username</th><th>Password</th>"
+						+ "<th>UPDATE</th><th>REMOVE</th></tr>";
+				
+				
 				//SQL Query			
 				String sql = "select * from consumer";
 							
@@ -42,7 +48,7 @@ public class ConsumerDBUtill {
 					String password = rs.getString(8);
 				
 					// Add into the html table
-					 output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + conId + "'>" + name + "</td>"; 
+					 output += "<tr><td><input id='hidConIDUpdate' name='hidConIDUpdate' type='hidden' value='" + conId + "'>" + name + "</td>"; 
 					 output += "<td>" + address + "</td>"; 
 					 output += "<td>" + mobile + "</td>"; 
 					 output += "<td>" + email + "</td>"; 
@@ -52,14 +58,14 @@ public class ConsumerDBUtill {
 					 
 					 // buttons
 					 output += "<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary'>"
-					 		+ "</td><td><form method='post' action='items.jsp'>"
+					 		+ "</td><td><form method='post' action='ConsumerProfile.jsp'>"
 					 		+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-					 		+ "<input name='hidItemIDDelete' type='hidden' value='" + conId + "'>" 
+					 		+ "<input name='hidConIDDelete' type='hidden' value='" + conId + "'>" 
 					 		+ "</form></td></tr>"; 
-					 
-					// Complete the html table
-					 output += "</table>";
 				}
+				
+				// Complete the html table
+				 output += "</table>";
 				
 			}catch(Exception e) {
 				e.printStackTrace();

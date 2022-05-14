@@ -50,7 +50,7 @@ function onConsumerSaveComplete(response, status)
 		{ 
 			$("#alertSuccess").text("Successfully saved."); 
 			$("#alertSuccess").show(); 
-			$("#divItemsGrid").html(resultSet.data); 
+			$("#divConsumerGrid").html(resultSet.data); 
 		} else if (resultSet.status.trim() == "error") 
 		{ 
 			$("#alertError").text(resultSet.data); 
@@ -115,3 +115,55 @@ function validateCustomerForm()
 	return true;
 }
 
+$(document).on("click", ".btnRemove", function(event) 
+{ 
+	$.ajax( 
+	{ 
+		url : "ConsumerAPI", 
+		type : "DELETE", 
+		data : "consumerId=" + $(this).data("conId"),
+		dataType : "text", 
+		complete : function(response, status) 
+		{ 
+			onItemDeleteComplete(response.responseText, status); 
+		} 
+	}); 
+});
+
+function onItemDeleteComplete(response, status) 
+{ 
+	if (status == "success") 
+	{ 
+		 var resultSet = JSON.parse(response); 
+		 if (resultSet.status.trim() == "success") 
+		 { 
+			 $("#alertSuccess").text("Successfully deleted."); 
+			 $("#alertSuccess").show(); 
+			 $("#divConsumerGrid").html(resultSet.data); 
+		 } else if (resultSet.status.trim() == "error") 
+		 { 
+			 $("#alertError").text(resultSet.data); 
+			 $("#alertError").show(); 
+		 } 
+	} else if (status == "error") 
+	{ 
+		$("#alertError").text("Error while deleting."); 
+		$("#alertError").show(); 
+	} else
+	{ 
+		 $("#alertError").text("Unknown error while deleting.."); 
+		 $("#alertError").show(); 
+	} 
+}
+
+$(document).on("click", ".btnUpdate", function(event) 
+{ 
+	$("#hidProfileIDSave").val($(this).data("hidConIDUpdate")); 
+	$("#name").val($(this).closest("tr").find('td:eq(0)').text()); 
+	$("#address").val($(this).closest("tr").find('td:eq(1)').text()); 
+	$("#mobile").val($(this).closest("tr").find('td:eq(2)').text()); 
+	$("#email").val($(this).closest("tr").find('td:eq(3)').text()); 
+	$("#nic").val($(this).closest("tr").find('td:eq(4)').text()); 
+	$("#username").val($(this).closest("tr").find('td:eq(5)').text()); 
+	$("#password").val($(this).closest("tr").find('td:eq(6)').text());
+});
