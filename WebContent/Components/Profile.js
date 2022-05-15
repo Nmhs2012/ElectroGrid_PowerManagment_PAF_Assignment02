@@ -15,6 +15,7 @@ $(document).on("click", "#btnSave", function(event)
 	$("#alertSuccess").hide();
 	$("#alertError").text("");
 	$("#alertError").hide();
+	
 	// Form validation-------------------
 	var status = validateCustomerForm();
 	if (status != true)
@@ -34,7 +35,14 @@ $(document).on("click", "#btnSave", function(event)
 				dataType : "text", 
 				complete : function(response, status) 
 				{ 
-					onConsumerSaveComplete(response.responseText, status); 
+					if(type == "POST"){
+						onConsumerSaveComplete(response.responseText, status); 
+					}
+					
+					else{
+						onConsumerSaveComplete(response.responseText, status); 
+					}
+					
 				} 
 			});
 	
@@ -51,6 +59,7 @@ function onConsumerSaveComplete(response, status)
 			$("#alertSuccess").text("Successfully saved."); 
 			$("#alertSuccess").show(); 
 			$("#divConsumerGrid").html(resultSet.data); 
+			
 		} else if (resultSet.status.trim() == "error") 
 		{ 
 			$("#alertError").text(resultSet.data); 
@@ -67,7 +76,7 @@ function onConsumerSaveComplete(response, status)
 		$("#alertError").show(); 
 	} 
 	$("#hidProfileIDSave").val(""); 
-	$("#formProfile")[0].reset(); 
+	///$("#formProfile")[0].reset(); 
 }
 
 function validateCustomerForm()
@@ -121,7 +130,7 @@ $(document).on("click", ".btnRemove", function(event)
 	{ 
 		url : "ConsumerAPI", 
 		type : "DELETE", 
-		data : "consumerId=" + $(this).data("conId"),
+		data : "conId=" + $(this).data("conid"),
 		dataType : "text", 
 		complete : function(response, status) 
 		{ 
@@ -158,7 +167,7 @@ function onItemDeleteComplete(response, status)
 
 $(document).on("click", ".btnUpdate", function(event) 
 { 
-	$("#hidProfileIDSave").val($(this).data("hidConIDUpdate")); 
+	$("#hidProfileIDSave").val($(this).data("conid")); 
 	$("#name").val($(this).closest("tr").find('td:eq(0)').text()); 
 	$("#address").val($(this).closest("tr").find('td:eq(1)').text()); 
 	$("#mobile").val($(this).closest("tr").find('td:eq(2)').text()); 

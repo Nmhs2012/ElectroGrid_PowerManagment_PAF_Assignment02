@@ -11,7 +11,6 @@ import model.Consumer;
 public class ConsumerDBUtill {
 
 		//Create objects for database Connection class
-		private static boolean Success = false;
 		private static Connection con = null;
 		private static Statement stat = null;
 		private static ResultSet rs = null;
@@ -27,10 +26,8 @@ public class ConsumerDBUtill {
 				stat = con.createStatement();
 				
 				// Prepare the html table to be displayed
-				output = "<table border='1'><tr><th>Name</th><th>Address</th><th>Mobile</th>"
-						+ "<th>Email</th><th>NIC</th><th>Username</th><th>Password</th>"
-						+ "<th>UPDATE</th><th>REMOVE</th></tr>";
-				
+				output = "<table border='1'><tr></th><th>Name</th><th>Address</th>" 
+						+ "<th>Mobile</th><th>Email</th><th>NIC</th><th>Username</th><th>Password</th><th>Update</th><th>Remove</th></tr>";
 				
 				//SQL Query			
 				String sql = "select * from consumer";
@@ -48,20 +45,18 @@ public class ConsumerDBUtill {
 					String password = rs.getString(8);
 				
 					// Add into the html table
-					 output += "<tr><td><input id='hidConIDUpdate' name='hidConIDUpdate' type='hidden' value='" + conId + "'>" + name + "</td>"; 
-					 output += "<td>" + address + "</td>"; 
-					 output += "<td>" + mobile + "</td>"; 
-					 output += "<td>" + email + "</td>"; 
-					 output += "<td>" + nic + "</td>"; 
-					 output += "<td>" + username + "</td>"; 
-					 output += "<td>" + password + "</td>";
+					output += "<tbody style='padding:10px; text-align:center;'><td ><input id='hidConIDUpdate' name='hidConIDUpdate' type='hidden' value='" + conId + "'>" + name + "</td>";
+					//output += "<td>" + name + "</td>";
+					output += "<td>" + address + "</td>";
+					output += "<td>" + mobile + "</td>";		
+					output += "<td>" + email + "</td>";	
+					output += "<td>" + nic + "</td>";	
+					output += "<td>" + username + "</td>";
+					output += "<td>" + password + "</td>";	
 					 
 					 // buttons
-					 output += "<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary'>"
-					 		+ "</td><td><form method='post' action='ConsumerProfile.jsp'>"
-					 		+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-					 		+ "<input name='hidConIDDelete' type='hidden' value='" + conId + "'>" 
-					 		+ "</form></td></tr>"; 
+					output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary' data-conid='" + conId + "'></td>" + 
+							"<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-conid='" + conId + "'>" + "</td></tbody>"; 
 				}
 				
 				// Complete the html table
@@ -144,7 +139,7 @@ public class ConsumerDBUtill {
 		    	try {
 		    		con = DBConnect.getConnection();
 		    		stat = con.createStatement();
-		    		String sql = "update consumer set name='"+name+"',address='"+address+"',mobile='"+mobile+"',nic='"+nic+"',email='"+email+"',username='"+username+"', password='"+password+"'"+ "where consumerId='"+conId+"'";
+		    		String sql = "update consumer set name='"+name+"',address='"+address+"',mobile='"+mobile+"',nic='"+nic+"',email='"+email+"',username='"+username+"', password='"+password+"'"+ "where conId='"+conId+"'";
 		    		int rs = stat.executeUpdate(sql);
 		    		
 		    		if(rs > 0) {
@@ -176,7 +171,7 @@ public class ConsumerDBUtill {
 					stat = con.createStatement();
 							
 					//SQL Query			
-					String sql = "delete from consumer where consumerId ='"+convertID+"'";
+					String sql = "delete from consumer where conId ='"+convertID+"'";
 							
 							//Run SQL Query
 							int a = stat.executeUpdate(sql); 

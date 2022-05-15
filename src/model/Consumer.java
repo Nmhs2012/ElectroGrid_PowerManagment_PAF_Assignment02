@@ -2,7 +2,7 @@ package model;
 
 public class Consumer {
 
-	public String consumerId;
+	public String conId;
 	public String name;
 	public String address;
 	public String nic;
@@ -12,10 +12,10 @@ public class Consumer {
 	public String password;
 	
 	
-	public Consumer(String consumerId, String name, String address, String nic, String mobile, String email,
+	public Consumer(String conId, String name, String address, String nic, String mobile, String email,
 			String username, String password) {
 		super();
-		this.consumerId = consumerId;
+		this.conId = conId;
 		this.name = name;
 		this.address = address;
 		this.nic = nic;
@@ -25,8 +25,8 @@ public class Consumer {
 		this.password = password;
 	}
 	
-	public String getConsumerId() {
-		return consumerId;
+	public String getconId() {
+		return conId;
 	}
 	public String getName() {
 		return name;

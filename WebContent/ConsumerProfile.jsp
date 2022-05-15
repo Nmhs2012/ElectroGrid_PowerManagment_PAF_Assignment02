@@ -25,7 +25,6 @@
 					 	<span class="input-group-text" id="lblName">Name: </span>
 					 </div>
 					 <input type="text" id="name" name="name">
-					 <p style = "color:Red">*</p>
 				 </div>
 				 
 				 <!-- ADDRESS -->
