@@ -33,12 +33,10 @@ public class ConsumerAPI extends HttpServlet {
 		String email = request.getParameter("email");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+				
+		String output = ConsumerDBUtill.insertProfileDetails(name, address, mobile, nic, email, username, password);
 		
-		String output;
-		
-		output = ConsumerDBUtill.insertProfileDetails(name, address, mobile, nic, email, username, password);
-		
-		response.getWriter().write(output); 
+		response.getWriter().write(output);
 	}
 	
 	// Convert request parameters to a Map
@@ -70,7 +68,7 @@ public class ConsumerAPI extends HttpServlet {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request); 
 		
-		String conId = paras.get("hidItemIDSave").toString();
+		String conId = paras.get("hidProfileIDSave").toString();
 		String name = paras.get("name").toString();
 		String address = paras.get("address").toString();
 		String mobile = paras.get("mobile").toString();

@@ -15,76 +15,80 @@
 		<div class="row">
 			<div class="col-8">
 	 
-	 			<h1 class="m-3">PROFILE</h1>
+	 			<h1 class="m-3">Consumer</h1>
 	 
-				 <form id="formProfile" name="formProfile">
+				 <form id="formProfile" name="formProfile" class="justify-content-center" style="width: 60%">
 				 
 				 <!-- NAME -->
-				 <div class="input-group input-group-sm mb-3">
-					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblName">Name: </span>
+				 <div class="form-row">
+					 <div class="form-group col-md-6">
+					 	<span class="form-label" id="lblName">Name: </span>
 					 </div>
-					 <input type="text" id="name" name="name">
+					 <input class="form-control" type="text" id="name" name="name">
 				 </div>
 				 
 				 <!-- ADDRESS -->
-				 <div class="input-group input-group-sm mb-3">
-					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblAddress">Address: </span>
+				 <div class="form-row">
+					 <div class="form-group col-md-6">
+					 	<span class="form-label" id="lblAddress">Address: </span>
 					 </div>
-					 <input type="text" id="address" name="address">
+					 <input class="form-control" type="text" id="address" name="address">
 				 </div>
 				 
 				 <!-- MOBILE -->
-				 <div class="input-group input-group-sm mb-3">
-					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblMobile">Mobile: </span>
+				 <div class="form-row">
+					 <div class="form-group col-md-6">
+					 	<span class="form-label" id="lblMobile">Mobile: </span>
 					 </div>
-					 <input type="text" id="mobile" name="mobile">
+					 <input class="form-control" type="text" id="mobile" name="mobile">
 				 </div>
 				 
 				 <!-- NIC -->
-				 <div class="input-group input-group-sm mb-3">
-					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblEmail">NIC: </span>
+				 <div class="form-row">
+					 <div class="form-group col-md-6">
+					 	<span class="form-label" id="lblEmail">NIC: </span>
 					 </div>
-					 <input type="text" id="nic" name="nic">
+					 <input class="form-control" type="text" id="nic" name="nic">
 				 </div>
 				 
 				 <!-- EMAIL -->
-				 <div class="input-group input-group-sm mb-3">
-					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblEmail">Email: </span>
+				 <div class="form-row">
+					 <div class="form-group col-md-6">
+					 	<span class="form-label" id="lblEmail">Email: </span>
 					 </div>
-					 <input type="text" id="email" name="email">
+					 <input class="form-control" type="text" id="email" name="email">
 				 </div>
 				 
 				 <!-- USERNAME -->
-				 <div class="input-group input-group-sm mb-3">
-					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblUsername">User Name: </span>
+				 <div class="form-row">
+					 <div class="form-group col-md-6">
+					 	<span class="form-label" id="lblUsername">User Name: </span>
 					 </div>
-					 <input type="text" id="username" name="username">
+					 <input class="form-control" type="text" id="username" name="username">
 				 </div>
 				 
 				 <!-- PASSWORD -->
-				 <div class="input-group input-group-sm mb-3">
-					 <div class="input-group-prepend">
-					 	<span class="input-group-text" id="lblPassword">Password: </span>
+				 <div class="form-row">
+					 <div class="form-group col-md-6">
+					 	<span class="form-label" id="lblPassword">Password: </span>
 					 </div>
-					 <input type="text" id="password" name="password">
+					 <input class="form-control" type="text" id="password" name="password">
 				 </div>
 				 
-				<input type="button" id="btnSave" value="Save" class="btn btn-primary">
+				<input class = "btn btn-primary mr-3" type="button" id="btnSave" value="Save" class="btn btn-primary">
 				<input type="hidden" id="hidProfileIDSave" name="hidProfileIDSave" value="">
 				
 				</form>
 				
 				<br>
+				<div class="ml-5">
+			<h2 class="mb-3">Consumer Details</h2>
+		</div>
+		
 		<div id="alertSuccess" class="alert alert-success"></div>
 		<div id="alertError" class="alert alert-danger"></div>
 		<br>
-	 	<div id="divConsumerGrid">
+	 	<div id="divConsumerGrid" class="col-12 mb-5 table table-responsive container-fluid table-striped row justify-content-center">
 	 	<%
  			out.print(ConsumerDBUtill.viewConsumer()); 
  		%>

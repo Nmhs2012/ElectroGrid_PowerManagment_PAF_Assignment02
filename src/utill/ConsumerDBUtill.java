@@ -113,22 +113,18 @@ public class ConsumerDBUtill {
 		    		stat = con.createStatement();
 		    	    String sql = "insert into consumer values (0, '"+name+"', '"+address+"', '"+mobile+"', '"+email+"', '"+nic+"','"+username+"', '"+password+"')";
 		    		int rs = stat.executeUpdate(sql);
-		    		
 		    		if(rs > 0) {
-		    			
 		    			String newConsumerDetails = viewConsumer(); 
-		    			 output = "{\"status\":\"success\", \"data\": \"" + newConsumerDetails + "\"}";
-
-		    		} else {
 		    			
-		    			output = "{\"status\":\"error\", \"data\": \"Error while inserting the details.\"}"; 
-
+		    			output = "{\"status\":\"success\", \"data\": \"" + newConsumerDetails + "\"}";
+		    		}
+		    		else {
+		    			output = "{\"status\":\"error\", \"data\": \"Error while saving the details.\"}"; 
 		    		}
 		    	}
 		    	catch (Exception e) {
 		    		e.printStackTrace();
 		    	}
-		 	
 		    	return output;
 		    }
 			
@@ -136,6 +132,7 @@ public class ConsumerDBUtill {
 			public static String updateProfileDetails(String conId, String name, String address, String mobile, String nic, String email, String username, String  password) {
 				
 				String output = "";
+				System.out.println("consumerId:" + conId);
 		    	try {
 		    		con = DBConnect.getConnection();
 		    		stat = con.createStatement();
@@ -148,7 +145,7 @@ public class ConsumerDBUtill {
 		    			output = "{\"status\":\"success\", \"data\": \"" + newConsumerDetails + "\"}";
 		    		}
 		    		else {
-		    			output = "{\"status\":\"error\", \"data\": \"Error while updating the item.\"}"; 
+		    			output = "{\"status\":\"error\", \"data\": \"Error while updating the details.\"}"; 
 		    		}
 		    		
 		    	}
@@ -182,7 +179,7 @@ public class ConsumerDBUtill {
 
 							}
 							else {
-								output = "{\"status\":\"error\", \"data\": \"Error while deleting the item.\"}";
+								output = "{\"status\":\"error\", \"data\": \"Error while deleting the details.\"}";
 							}
 						}catch(Exception e) {
 							e.printStackTrace();

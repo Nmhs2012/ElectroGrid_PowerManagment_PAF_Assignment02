@@ -40,7 +40,7 @@ $(document).on("click", "#btnSave", function(event)
 					}
 					
 					else{
-						onConsumerSaveComplete(response.responseText, status); 
+						onConsumerUpdateComplete(response.responseText, status); 
 					}
 					
 				} 
@@ -49,35 +49,36 @@ $(document).on("click", "#btnSave", function(event)
 });
 
 function onConsumerSaveComplete(response, status)
-{ 
-	if (status == "success") 
-	{ 
+{
+	if (status == "success")
+	{
 		var resultSet = JSON.parse(response);
 		
-		if (resultSet.status.trim() == "success") 
-		{ 
-			$("#alertSuccess").text("Successfully saved."); 
-			$("#alertSuccess").show(); 
-			$("#divConsumerGrid").html(resultSet.data); 
+		if (resultSet.status.trim() == "success")
+		{
 			
-		} else if (resultSet.status.trim() == "error") 
-		{ 
-			$("#alertError").text(resultSet.data); 
-			$("#alertError").show(); 
+			$("#alertSuccess").text("Inserted Successfully");
+			$("#alertSuccess").show();
+			$("#divConsumerGrid").html(resultSet.data);
+			
+								
+		} else if (resultSet.status.trim() == "error")
+		{
+			$("#alertError").text(resultSet.data);
+			$("#alertError").show();
 		}
-		
-	} else if (status == "error") 
-	{ 
-		$("#alertError").text("Error while saving."); 
-		$("#alertError").show(); 
+	} else if (status == "error")
+	{
+		$("#alertError").text("Error while saving.");
+		$("#alertError").show();
 	} else
-	{ 
-		$("#alertError").text("Unknown error while saving.."); 
-		$("#alertError").show(); 
-	} 
-	$("#hidProfileIDSave").val(""); 
-	///$("#formProfile")[0].reset(); 
+	{
+		$("#alertError").text("Unknown error while saving..");
+		$("#alertError").show();
+	}
+	$("#hidProfileIDSave").val("");
 }
+
 
 function validateCustomerForm()
 {
@@ -134,12 +135,12 @@ $(document).on("click", ".btnRemove", function(event)
 		dataType : "text", 
 		complete : function(response, status) 
 		{ 
-			onItemDeleteComplete(response.responseText, status); 
+			onConsumerDeleteComplete(response.responseText, status); 
 		} 
 	}); 
 });
 
-function onItemDeleteComplete(response, status) 
+function onConsumerDeleteComplete(response, status) 
 { 
 	if (status == "success") 
 	{ 
@@ -176,3 +177,32 @@ $(document).on("click", ".btnUpdate", function(event)
 	$("#username").val($(this).closest("tr").find('td:eq(5)').text()); 
 	$("#password").val($(this).closest("tr").find('td:eq(6)').text());
 });
+
+function onConsumerUpdateComplete(response, status)
+{
+	if (status == "success")
+	{
+		var resultSet = JSON.parse(response);
+		
+		if (resultSet.status.trim() == "success")
+		{
+			$("#alertSuccess").text("Updated Sucessfully...");
+			$("#alertSuccess").show();
+			$("#divConsumerGrid").html(resultSet.data);
+						
+		} else if (resultSet.status.trim() == "error")
+		{
+			$("#alertError").text(resultSet.data);
+			$("#alertError").show();
+		}
+	} else if (status == "error")
+	{
+		$("#alertError").text("Error while updating.");
+		$("#alertError").show();
+	} else
+	{
+		$("#alertError").text("Unknown error while updating..");
+		$("#alertError").show();
+	}
+	$("#hidProfileIDSave").val("");
+}
